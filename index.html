@@ -77,6 +77,10 @@ td:first-child{font-weight:700;white-space:nowrap}
 .progress-note{font-size:.92rem;color:var(--muted)}
 @media(max-width:900px){.project-grid{grid-template-columns:1fr 1fr}.hero{grid-template-columns:1fr}.doc{transform:none}}
 @media(max-width:850px){.wrap{padding:14px}.layout{grid-template-columns:1fr}.sidebar{position:static}.sidebar nav{display:grid;grid-template-columns:1fr 1fr;border:0;gap:2px}.cols{grid-template-columns:1fr}.hero{padding:34px 24px}.stats{flex-direction:column}.stat{border-right:0;border-bottom:1px solid #ffffff1f}.project-grid{grid-template-columns:1fr}.section-title{font-size:1.55rem}}
+.open-btn{display:inline-block;margin-top:20px;padding:10px 20px;border-radius:99px;background:var(--ph-ink);color:#fff;font-weight:700;font-size:.92rem}
+.open-btn:hover{filter:brightness(1.15)}.open-btn:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+#plan td:first-child a{color:var(--leaf);text-decoration:underline;text-underline-offset:3px}
+@media print{.open-btn{display:none}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 @media print{body{background:#fff}.wrap{max-width:none;padding:0}.hero{border-radius:0}.doc{transform:none}.sidebar{display:none}.layout{display:block}.day{break-inside:avoid;box-shadow:none}.day:not([open]) .day-body{display:block}.day summary:after{display:none}}
 </style>
@@ -337,5 +341,43 @@ mongorestore \
 </main>
 </div>
 </div>
+<script>
+// ✏️ Edit your links here: Day number -> file path or full URL (e.g. "notes/day-01.pdf" or "https://...")
+const MODULE_LINKS = {
+  1: "modules/day-01.html",
+  2: "modules/day-02.html",
+  3: "modules/day-03.html",
+  4: "modules/day-04.html",
+  5: "modules/day-05.html",
+  6: "modules/day-06.html",
+  7: "modules/day-07.html",
+  8: "modules/day-08.html",
+  9: "modules/day-09.html",
+  10: "modules/day-10.html",
+  11: "modules/day-11.html",
+  12: "modules/day-12.html",
+  13: "modules/day-13.html",
+  14: "modules/day-14.html",
+  15: "modules/day-15.html",
+  16: "modules/day-16.html",
+  17: "modules/day-17.html",
+  18: "modules/day-18.html",
+  19: "modules/day-19.html",
+  20: "modules/day-20.html"
+};
+document.querySelectorAll('.day').forEach(function(d){
+  var n = parseInt(d.querySelector('.day-num').textContent, 10), u = MODULE_LINKS[n];
+  if(!u) return;
+  var a = document.createElement('a');
+  a.className = 'open-btn'; a.href = u; a.target = '_blank'; a.rel = 'noopener';
+  a.textContent = 'Open Day ' + n + ' file';
+  d.querySelector('.day-body').appendChild(a);
+});
+document.querySelectorAll('#plan tbody tr').forEach(function(tr){
+  var td = tr.firstElementChild, n = parseInt(td.textContent, 10), u = MODULE_LINKS[n];
+  if(!u) return;
+  td.innerHTML = '<a href="' + u + '" target="_blank" rel="noopener">' + n + '</a>';
+});
+</script>
 </body>
 </html>
